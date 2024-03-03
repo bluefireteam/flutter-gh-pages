@@ -8,7 +8,7 @@ branding:
 
 inputs:
   webRenderer:
-    description: 'Which web renderer to be used, default is auto'
+    description: 'Which web renderer to be used, default is auto. Use both to build both variants.'
     required: false
     default: auto
   workingDir:
@@ -26,6 +26,10 @@ inputs:
     description: 'Custom args like: --dart-define="simple=example"'
     required: false
     default:
+  htmlDir:
+    description: 'The name of the subdirectory where the html variant will be deployed (default htmlVersion)'
+    required: false
+    default: htmlVersion
 
 runs:
   using: 'composite'
@@ -33,7 +37,15 @@ runs:
     - run: flutter config --enable-web
       shell: bash
       working-directory: ${{inputs.workingDir}}
-    - run: flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+    - run: |
+        if [ "${{inputs.webRenderer}}" = "both" ]; then
+          flutter build web --release --web-renderer=canvaskit --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+          mv build/web build/canvaskit
+          flutter build web --release --web-renderer=html --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+          mv build/web build/html
+        else
+          flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+        fi
       shell: bash
       working-directory: ${{inputs.workingDir}}
     - run: git config user.name github-actions
@@ -42,7 +54,11 @@ runs:
     - run: git config user.email github-actions@github.com
       shell: bash
       working-directory: ${{inputs.workingDir}}
-    - run: git --work-tree build/web add --all
+    - run: |
+        git --work-tree build add --all
+        if [ "${{inputs.webRenderer}}" = "both" ]; then
+          mv build/html build/web/${{inputs.htmlDir}}
+        fi
       shell: bash
       working-directory: ${{inputs.workingDir}}
     - run: git commit -m "Automatic deployment by github-actions"
