@@ -42,6 +42,15 @@ More on web renderers here: https://flutter.dev/docs/development/tools/web-rende
           webRenderer: canvaskit
 ```
 
+The possible values for webRenderer are:
+
+- auto: Use the default Flutter setting, which is based on the device and browser capabilities.
+- canvaskit: Use the CanvasKit renderer, which uses WebGL and WebAssembly to render graphics.
+- html: Use the HTML renderer, which uses DOM elements and CSS to render graphics.
+- both: Use both renderers and generate two versions of the web app, one in the root folder (here would be the CanvasKit version) and one in a subfolder specified by the htmlFolder property.
+
+If you use both as the webRenderer value, you can also specify the name of the subfolder where the HTML version will be placed, using the htmlFolder property. The default value is htmlVersion.
+
 By default, the action will send the files to the `gh-pages` branch, which is the default used by Github Pages.
 If you need to change that, the `targetBranch` property can be used
 
