@@ -57,7 +57,9 @@ runs:
     - run: |
         git --work-tree build add --all
         if [ "${{inputs.webRenderer}}" = "both" ]; then
-          mv build/html build/web/${{inputs.htmlDir}}
+          mkdir -p build/web/${{inputs.htmlDir}}
+          mv build/html/* build/web/${{inputs.htmlDir}}/
+          mv build/canvaskit/* build/web/
         fi
       shell: bash
       working-directory: ${{inputs.workingDir}}
