@@ -44,7 +44,7 @@ runs:
 
           flutter build web --release --web-renderer=canvaskit --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
           mv build/web/* build/.
-          rm build/web/
+          rmdir build/web/
         else
           flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
         fi
