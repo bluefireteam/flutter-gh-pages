@@ -42,7 +42,9 @@ More on web renderers here: https://flutter.dev/docs/development/tools/web-rende
           webRenderer: canvaskit
 ```
 
-You can also specify if you want to build to webassembly with the `compileToWasm` property. If specified the `webRenderer` property will be ignored.
+You can also specify if you want to build to WebAssembly with the `compileToWasm` property. If specified the `webRenderer` property will be ignored.
+
+More on WebAssembly here: https://docs.flutter.dev/platform-integration/web/wasm
 
 ```yml
       ...
