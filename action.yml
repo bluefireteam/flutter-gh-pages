@@ -1,6 +1,6 @@
-name: 'Deploy Flutter web app to github pages'
-description: 'Automates the build and deployment of your Flutter web app on Github gh pages'
-author: 'bluefireteam'
+name: "Deploy Flutter web app to github pages"
+description: "Automates the build and deployment of your Flutter web app on Github gh pages"
+author: "bluefireteam"
 
 branding:
   color: blue
@@ -8,32 +8,42 @@ branding:
 
 inputs:
   webRenderer:
-    description: 'Which web renderer to be used, default is auto'
+    description: "Which web renderer to be used, default is auto"
     required: false
     default: auto
   workingDir:
-    description: 'The directory where the project is (default .)'
+    description: "The directory where the project is (default .)"
     required: false
     default: .
   targetBranch:
+    description: "The branch where the build will be pushed"
     required: false
     default: gh-pages
   baseHref:
-    description: 'base href (if applicable)'
+    description: "base href (if applicable)"
     required: false
     default: "/"
   customArgs:
     description: 'Custom args like: --dart-define="simple=example"'
     required: false
-    default:
+    default: ""
+  compileToWasm:
+    description: "Compile to wasm, if used this will ignore the webRenderer flag, default is false"
+    required: false
+    default: "false"
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - run: flutter config --enable-web
       shell: bash
       working-directory: ${{inputs.workingDir}}
-    - run: flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+    - run: |
+        if [[ "${{inputs.compileToWasm}}" == "true" ]]; then
+          flutter build web --release --wasm --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+        else
+          flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+        fi
       shell: bash
       working-directory: ${{inputs.workingDir}}
     - run: git config user.name github-actions
