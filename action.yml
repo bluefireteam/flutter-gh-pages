@@ -16,7 +16,7 @@ inputs:
     required: false
     default: .
   targetBranch:
-    description: "The branch where the build will be pushed"
+    description: "The branch where the build will be pushed, default is gh-pages"
     required: false
     default: gh-pages
   baseHref:
