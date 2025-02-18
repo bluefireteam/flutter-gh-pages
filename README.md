@@ -44,6 +44,17 @@ More on web renderers here: https://flutter.dev/docs/development/tools/web-rende
           webRenderer: canvaskit
 ```
 
+You can also specify if you want to build to WebAssembly with the `compileToWasm` property. If specified the `webRenderer` property will be ignored.
+
+More on WebAssembly here: https://docs.flutter.dev/platform-integration/web/wasm
+
+```yml
+      ...
+      - uses: bluefireteam/flutter-gh-pages@v7
+        with:
+          compileToWasm: true
+```
+
 By default, the action will send the files to the `gh-pages` branch, which is the default used by Github Pages.
 If you need to change that, the `targetBranch` property can be used
 
