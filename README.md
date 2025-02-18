@@ -32,6 +32,8 @@ To build a project in a folder other that the root, use the `workingDir` propert
 ```
 
 By default, the action will use the auto setting for web renderers, to change that you can use the `webRenderer` property.
+<br>
+Note: the --web-renderer argument is deprecated in flutter 3.29.0 hence it will be ignored flutter version is or above 3.29.0
 
 More on web renderers here: https://flutter.dev/docs/development/tools/web-renderers
 
