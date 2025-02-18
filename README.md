@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
 ```
 
 In order to push the changes, the **GITHUB_TOKEN** needs to have **write** permissions.
@@ -32,7 +32,7 @@ To build a project in a folder other that the root, use the `workingDir` propert
 
 ```yml
       ...
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           workingDir: example
 ```
@@ -45,7 +45,7 @@ More on web renderers here: https://flutter.dev/docs/development/tools/web-rende
 
 ```yml
       ...
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           webRenderer: canvaskit
 ```
@@ -56,7 +56,7 @@ More on WebAssembly here: https://docs.flutter.dev/platform-integration/web/wasm
 
 ```yml
       ...
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           compileToWasm: true
 ```
@@ -66,7 +66,7 @@ If you need to change that, the `targetBranch` property can be used
 
 ```yml
       ...
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           targetBranch: my-gh-pages-branch
 ```
@@ -79,7 +79,7 @@ The parameter `baseHref` must start and end with a forward slash `"/"`.
 
 ```yml
       ...
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           baseHref: /my-repo/
 ```
@@ -88,7 +88,7 @@ To pass arguments to the builder with `--dart-define` the `customArgs` property 
 
 ```yml
       ...
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - uses: bluefireteam/flutter-gh-pages@v9
         with:
           customArgs: --dart-define="simple=example"
 ```
