@@ -40,16 +40,14 @@ runs:
     - run: flutter config --enable-web
       shell: bash
       working-directory: ${{inputs.workingDir}}
-    - run: flutter build web --release --wasm --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
-      if: ${{ inputs.compileToWasm == 'true' }}
-      shell: bash
-      working-directory: ${{inputs.workingDir}}
-    - run: flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
-      if: ${{ env.flutter_version < 3290 && inputs.compileToWasm != 'true' }}
-      shell: bash
-      working-directory: ${{inputs.workingDir}}
-    - run: flutter build web --release --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
-      if: ${{ env.flutter_version >= 3290 && inputs.compileToWasm != 'true' }}
+    - run: |
+        if [ "${{ inputs.compileToWasm }}" == "true" ]; then
+          flutter build web --release --wasm --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+        elif [ ${{ env.flutter_version }} -lt 3290 ]; then
+          flutter build web --release --web-renderer=${{inputs.webRenderer}} --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+        else
+          flutter build web --release --base-href ${{inputs.baseHref}} ${{inputs.customArgs}}
+        fi
       shell: bash
       working-directory: ${{inputs.workingDir}}
     - run: git config user.name github-actions
