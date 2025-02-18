@@ -22,6 +22,12 @@ jobs:
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/flutter-gh-pages@v7
 ```
+
+In order to push the changes, the **GITHUB_TOKEN** needs to have **write** permissions.
+This can be set in Repository 🠚 Settings 🠚 Actions 🠚 General.
+See the [documentation](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token).
+![image](https://github.com/bluefireteam/flutter-gh-pages/assets/564768/22e3ed49-03bf-4b30-ad96-e16dc6613106)
+
 To build a project in a folder other that the root, use the `workingDir` property
 
 ```yml
